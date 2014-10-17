@@ -4,3 +4,5 @@ projects
 project
 puppet/.ruby-version
 puppet/.ruby-gemset
+puppet/.tmp
+puppet/.librarian

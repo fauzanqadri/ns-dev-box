@@ -1,6 +1,0 @@
-2013-11-08 Release 0.0.2
-- Added Solaris support
-- Removed the dependency on stdlib
-
-2013-10-25 Release 0.0.1
-- first release
