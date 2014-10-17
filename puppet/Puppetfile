@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+#^syntax detection
+
+forge "https://forgeapi.puppetlabs.com"
+
+mod 'puppetlabs-apt'
+mod 'puppet-curl', :git => "git://github.com/alphagov/puppet-curl.git"
+mod 'puppet-archive', :git => "git://github.com/camptocamp/puppet-archive.git"
+mod 'puppet-patch', :git => "git://github.com/tohuwabohu/puppet-patch.git"

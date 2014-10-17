@@ -1,0 +1,6 @@
+.DS_Store
+.vagrant
+projects
+project
+puppet/.ruby-version
+puppet/.ruby-gemset
