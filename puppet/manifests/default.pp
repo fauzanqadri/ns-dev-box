@@ -1,25 +1,25 @@
 $as_vagrant = "sudo -u vagrant -H bash -l -c"
 $home = "/home/vagrant"
 
-include apt
-
 Exec {
   path => ['/usr/sbin', '/usr/bin', '/sbin', '/bin']
 }
 
 # ------------------------ Pre Install Stage --------------------------
 
+stage { 'preinstall':
+  before => Stage['main']
+}
+
+stage { 'post_main': }
+Stage['main']->Stage['post_main']
+
+include apt
+
 apt::source { 'kambing_ui':
   location => 'http://kambing.ui.ac.id/ubuntu/',
   repos    => 'main'
 }
-
-stage { 'preinstall':
-  before => Stage['main']
-}
-stage { 'post_main': }
-Stage['main']->Stage['post_main']
-
 class apt_get_update {
   exec { 'apt-get update -y':}
 }
@@ -28,6 +28,8 @@ class { 'apt_get_update':
   stage => preinstall
 }
 
+
+# ------------------------ Main Stage --------------------------
 
 include curl
 
@@ -48,47 +50,41 @@ package { 'libyaml-dev': ensure      => "installed" }
 package { 'libtool': ensure          => "installed" }
 package { 'xauth': ensure            => "installed" }
 package { 'x11-apps': ensure         => "installed" }
+package { 'openjdk-7-jre': ensure    => "installed" }
+
+
+# ------------------------ Post Main Stage --------------------------
 
 class download_ns2_source {
   curl::fetch { 'ns-allinone-2.35':
-    source      => 'https://dl.dropboxusercontent.com/u/24623828/ns-allinone-2.35.tar.gz',
+    source      => 'https://codeload.github.com/paultsr/ns-allinone-2.35/legacy.tar.gz/master',
     destination   => '/usr/src/ns-allinone-2.35.tar.gz'
   }
 }
-class download_ns2_patch {
-  curl::fetch { "download":
-    source      => "https://dl.dropboxusercontent.com/u/55796430/ns_patchfile",
-    destination => "/home/vagrant/ns_patch.diff"
-  }
-}
-class patch_ns2_source {
-  patch::file {"/opt/ns-allinone-2.35/ns-2.35/linkstate/ls.h":
-    target      => "/opt/ns-allinone-2.35/ns-2.35/linkstate/ls.h",
-    diff_source => "/home/vagrant/ns_patch.diff"
+class create_ns2_directory {
+  file { "/usr/local/ns-allinone-2.35":
+    ensure => "directory"
   }
 }
 class extract_ns2_source {
   exec { "extract_ns2_source":
-    command => "tar zxvf /usr/src/ns-allinone-2.35.tar.gz -C /opt"
+    command => "tar zxvf /usr/src/ns-allinone-2.35.tar.gz -C /usr/local/ns-allinone-2.35 --strip-components=1"
   }
 }
 class build_ns2_source {
   exec { "build_ns2_source":
     command => "./install",
-    cwd     => "/opt/ns-allinone-2.35"
+    cwd     => "/usr/local/ns-allinone-2.35"
   }
 }
 class { 'download_ns2_source':
   stage => post_main
 }->
-class { 'download_ns2_patch':
+class { 'create_ns2_directory':
   stage => post_main
 }->
 class{ 'extract_ns2_source':
   stage => post_main
-}->
-class{ 'patch_ns2_source':
-  stage=> post_main
 }->
 class{ 'build_ns2_source':
   stage=> post_main

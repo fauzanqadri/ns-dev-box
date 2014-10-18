@@ -12,24 +12,7 @@ GIT
   specs:
     puppet-curl (0.0.1)
 
-GIT
-  remote: git://github.com/camptocamp/puppet-archive.git
-  ref: master
-  sha: 84f7fbae02bf343205eae5f0d52f3101612de777
-  specs:
-    puppet-archive (0.1.3)
-
-GIT
-  remote: git://github.com/tohuwabohu/puppet-patch.git
-  ref: master
-  sha: d5d5ffce9ef4ff96cc51e4e7f909075e8845537c
-  specs:
-    puppet-patch (1.0.2)
-      puppetlabs-stdlib (~> 4.0)
-
 DEPENDENCIES
-  puppet-archive (>= 0)
   puppet-curl (>= 0)
-  puppet-patch (>= 0)
   puppetlabs-apt (>= 0)
 

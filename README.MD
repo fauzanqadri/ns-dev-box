@@ -32,35 +32,6 @@ with
     ...
     vagrant@precise32:~$
 
-hey, wait up. for the first time after the installation has finished.
-there's something **IMPORTANT** you have todo before you begin the development. So,
-here it is.
-
-1. access your virtual machine
-2. edit your $PATH environment on `/home/vagrant/.bashrc` file to have
-   something like this
-
-        export PATH=$PATH:/opt/ns-allinone-2.35/bin:/opt/ns-allinone-2.35/tcl8.5.10/unix:/opt/ns-allinone-2.35/tk8.5.10/unix
-        export LD_LIBRARY_PATH=/opt/ns-allinone-2.35/otcl-1.14:/opt/ns-allinone-2.35/lib
-        export TCL_LIBRARY=/opt/ns-allinone-2.35/tcl8.5.10/library:/opt/ns-allinone-2.35/tk8.5.10/library
-
-meeeh, there you go step by step how to do that
-
-    host $ vagrant ssh
-    Welcome to Ubuntu 12.04 LTS (GNU/Linux 3.2.0-23-generic-pae i686)
-    ...
-    vagrant@precise32:~$ vi ~/.bashrc
-    # ~/.bashrc: executed by bash(1) for non-login shells.
-    ...
-    ## Scroll using arrow-key with your key board until the end of file
-    ## then hit i-key on your key board
-    ## after that begin to type something like this
-    export PATH=$PATH:/opt/ns-allinone-2.35/bin:/opt/ns-allinone-2.35/tcl8.5.10/unix:/opt/ns-allinone-2.35/tk8.5.10/unix
-    ...
-    ## after finished editing hit esc-key on your keyboard
-    ## then type :wq and hit enter-key on your keyboard
-    vagrant@precise32:~$ source /home/vagrant/.bashrc
-
 and you ready to go...
 
 
@@ -70,7 +41,9 @@ and you ready to go...
 
 * Git
 
-* ns-allione-2.35
+* ns-allione-2.35 with Mannasim patch
+
+* nsg
 
 ## Recommended Workflow
 
@@ -138,3 +111,5 @@ Released under the MIT License, Copyright (c) 2012–<i>ω</i> Fauzan Qadri
 
 1. The owner of 
    [this](https://vibhanshu86.wordpress.com/2014/06/17/installing-ns2-on-ubuntu-14-04/) blog to make installing NS-2.35 more easy
+
+2. The owner of [this](https://github.com/paultsr/ns-allinone-2.35) repository for Mannasim patch NS-2.35
